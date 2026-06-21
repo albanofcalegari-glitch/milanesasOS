@@ -192,26 +192,26 @@ export function POSClient({
       <PageHeader title="POS / Ventas" description="Registrar nueva venta" />
 
       {!cashOpen && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6 flex items-center gap-3">
           <AlertCircle className="size-5 text-red-500 shrink-0" />
           <div>
-            <p className="text-sm font-medium text-red-800">Caja cerrada</p>
-            <p className="text-sm text-red-600">Abri la caja desde el modulo Caja para poder vender.</p>
+            <p className="text-sm font-medium text-red-700 dark:text-red-400">Caja cerrada</p>
+            <p className="text-sm text-red-600 dark:text-red-400/80">Abri la caja desde el modulo Caja para poder vender.</p>
           </div>
         </div>
       )}
 
       {lastSale && (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6 flex items-center justify-between">
+        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="size-8 rounded-full bg-emerald-100 flex items-center justify-center">
-              <ShoppingCart className="size-4 text-emerald-700" />
+            <div className="size-8 rounded-full bg-emerald-500/15 flex items-center justify-center">
+              <ShoppingCart className="size-4 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div>
-              <p className="text-sm font-medium text-emerald-800">
+              <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
                 Venta #{lastSale.id.slice(-6)} - {formatCurrency(lastSale.total)}
               </p>
-              <p className="text-xs text-emerald-600">{paymentMethodLabel(lastSale.paymentMethod)} - {lastSale.customer}</p>
+              <p className="text-xs text-emerald-600 dark:text-emerald-400/80">{paymentMethodLabel(lastSale.paymentMethod)} - {lastSale.customer}</p>
             </div>
           </div>
           <Button variant="outline" size="sm" onClick={printTicket}>

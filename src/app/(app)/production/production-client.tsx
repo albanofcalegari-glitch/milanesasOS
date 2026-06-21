@@ -95,7 +95,7 @@ export function ProductionClient({ products }: { products: Product[] }) {
               const needed = ri.quantity * parseInt(quantity);
               const sufficient = ri.ingredient.stock >= needed;
               return (
-                <div key={i} className={`text-xs p-2 rounded ${sufficient ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>
+                <div key={i} className={`text-xs p-2 rounded ${sufficient ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-red-500/10 text-red-600 dark:text-red-400"}`}>
                   <span className="font-medium">{ri.ingredient.name}</span>
                   <br />
                   Necesario: {needed.toFixed(2)} {ri.ingredient.unit}

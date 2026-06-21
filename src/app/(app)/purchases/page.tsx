@@ -8,9 +8,9 @@ import { PurchaseActions } from "./purchase-actions";
 
 const statusLabels: Record<string, { label: string; className: string }> = {
   draft: { label: "Borrador", className: "bg-muted text-muted-foreground" },
-  pending: { label: "Pendiente", className: "bg-yellow-100 text-yellow-700" },
-  received: { label: "Recibida", className: "bg-emerald-100 text-emerald-700" },
-  cancelled: { label: "Cancelada", className: "bg-red-100 text-red-700" },
+  pending: { label: "Pendiente", className: "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400" },
+  received: { label: "Recibida", className: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" },
+  cancelled: { label: "Cancelada", className: "bg-red-500/15 text-red-600 dark:text-red-400" },
 };
 
 export default async function PurchasesPage() {

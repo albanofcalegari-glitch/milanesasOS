@@ -40,7 +40,7 @@ export function UserMenu({
             </div>
             <button
               onClick={() => logout()}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-500 hover:bg-destructive/10 rounded-lg transition-colors"
             >
               <LogOut className="size-4" />
               Cerrar sesion

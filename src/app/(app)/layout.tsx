@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/actions/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/sidebar";
 import { UserMenu } from "@/components/user-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default async function AppLayout({
   children,
@@ -15,7 +16,8 @@ export default async function AppLayout({
     <div className="flex min-h-screen bg-muted/30">
       <Sidebar userName={user.name} branchName={user.branch.name} businessName={user.branch.business.name} />
       <main className="flex-1 ml-64 min-h-screen flex flex-col">
-        <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-end px-6 sticky top-0 z-20">
+        <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-end gap-2 px-6 sticky top-0 z-20">
+          <ThemeToggle />
           <UserMenu userName={user.name} userEmail={user.email} userRole={user.role} />
         </header>
         <div className="flex-1 p-6">{children}</div>

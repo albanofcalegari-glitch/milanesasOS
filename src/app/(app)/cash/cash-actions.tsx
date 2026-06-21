@@ -208,7 +208,7 @@ export function CashActions({ openSession }: { openSession: CashSession | null }
                 <tr key={m.id} className="border-b border-border/50">
                   <td className="py-2">{formatDateTime(m.createdAt)}</td>
                   <td className="py-2">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${m.amount >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${m.amount >= 0 ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" : "bg-red-500/15 text-red-600 dark:text-red-400"}`}>
                       {m.type === "sale" ? "Venta" : m.amount >= 0 ? "Ingreso" : "Egreso"}
                     </span>
                   </td>

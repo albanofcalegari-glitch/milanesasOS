@@ -7,10 +7,10 @@ import { StockAdjust } from "./stock-adjust";
 
 function stockStatus(stock: number, minStock: number) {
   if (minStock === 0) return { label: "Sin minimo", className: "bg-muted text-muted-foreground" };
-  if (stock <= 0) return { label: "Sin stock", className: "bg-red-100 text-red-700" };
-  if (stock <= minStock) return { label: "Critico", className: "bg-red-100 text-red-700" };
-  if (stock <= minStock * 1.5) return { label: "Bajo", className: "bg-yellow-100 text-yellow-700" };
-  return { label: "OK", className: "bg-emerald-100 text-emerald-700" };
+  if (stock <= 0) return { label: "Sin stock", className: "bg-red-500/15 text-red-600 dark:text-red-400" };
+  if (stock <= minStock) return { label: "Critico", className: "bg-red-500/15 text-red-600 dark:text-red-400" };
+  if (stock <= minStock * 1.5) return { label: "Bajo", className: "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400" };
+  return { label: "OK", className: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" };
 }
 
 export default async function StockPage() {
@@ -124,7 +124,7 @@ export default async function StockPage() {
                       <td className="py-3 px-4">{formatDateTime(m.createdAt)}</td>
                       <td className="py-3 px-4">{m.itemType === "product" ? "Producto" : "Insumo"}</td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${m.quantity >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${m.quantity >= 0 ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" : "bg-red-500/15 text-red-600 dark:text-red-400"}`}>
                           {m.type}
                         </span>
                       </td>

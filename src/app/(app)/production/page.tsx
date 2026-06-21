@@ -6,10 +6,10 @@ import { formatDateTime } from "@/lib/format";
 import { ProductionClient } from "./production-client";
 
 const statusLabels: Record<string, { label: string; className: string }> = {
-  pending: { label: "Pendiente", className: "bg-yellow-100 text-yellow-700" },
-  in_progress: { label: "En proceso", className: "bg-blue-100 text-blue-700" },
-  completed: { label: "Completada", className: "bg-emerald-100 text-emerald-700" },
-  cancelled: { label: "Cancelada", className: "bg-red-100 text-red-700" },
+  pending: { label: "Pendiente", className: "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400" },
+  in_progress: { label: "En proceso", className: "bg-blue-500/15 text-blue-600 dark:text-blue-400" },
+  completed: { label: "Completada", className: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" },
+  cancelled: { label: "Cancelada", className: "bg-red-500/15 text-red-600 dark:text-red-400" },
 };
 
 export default async function ProductionPage() {
