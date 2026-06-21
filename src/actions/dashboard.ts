@@ -68,6 +68,12 @@ export async function getDashboardData() {
   const criticalIngredients = ingredients.filter(
     (i) => i.stock <= i.minStock && i.minStock > 0
   );
+  const reorderIngredients = ingredients.filter(
+    (i) => i.stock > i.minStock && i.stock <= i.reorderPoint && i.reorderPoint > 0
+  );
+  const breakIngredients = ingredients.filter(
+    (i) => i.stock <= i.breakPoint
+  );
 
   const salesByMethod: Record<string, number> = {};
   for (const sale of todaySales) {
@@ -86,5 +92,7 @@ export async function getDashboardData() {
     recentSales,
     pendingProduction,
     salesByMethod,
+    reorderIngredients,
+    breakIngredients,
   };
 }

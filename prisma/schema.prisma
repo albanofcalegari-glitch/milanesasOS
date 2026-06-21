@@ -57,14 +57,16 @@ model Product {
 }
 
 model Ingredient {
-  id          String   @id @default(cuid())
-  name        String
-  unit        String   @default("kg")
-  stock       Float    @default(0)
-  minStock    Float    @default(5)
-  costPerUnit Float    @default(0)
-  createdAt   DateTime @default(now())
-  recipeItems RecipeItem[]
+  id           String   @id @default(cuid())
+  name         String
+  unit         String   @default("kg")
+  stock        Float    @default(0)
+  minStock     Float    @default(5)
+  reorderPoint Float    @default(10)
+  breakPoint   Float    @default(2)
+  costPerUnit  Float    @default(0)
+  createdAt    DateTime @default(now())
+  recipeItems  RecipeItem[]
   purchaseOrderItems PurchaseOrderItem[]
 }
 

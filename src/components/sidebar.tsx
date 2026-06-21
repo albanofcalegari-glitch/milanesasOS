@@ -16,6 +16,7 @@ import {
   BarChart3,
   Settings,
   ClipboardList,
+  Leaf,
 } from "lucide-react";
 
 const nav = [
@@ -24,6 +25,7 @@ const nav = [
   { href: "/sales", label: "Historial", icon: ClipboardList },
   { href: "/cash", label: "Caja", icon: Wallet },
   { href: "/products", label: "Productos", icon: Package },
+  { href: "/materias-primas", label: "Materias Primas", icon: Leaf },
   { href: "/stock", label: "Stock", icon: Warehouse },
   { href: "/recipes", label: "Recetas", icon: BookOpen },
   { href: "/production", label: "Produccion", icon: Factory },

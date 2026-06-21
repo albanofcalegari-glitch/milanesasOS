@@ -2,9 +2,11 @@ export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/db";
 import { PageHeader } from "@/components/page-header";
+import { getIngredientThresholds } from "@/actions/ingredients";
+import { StockConfig } from "./stock-config";
 
 export default async function SettingsPage() {
-  const [business, branch, user, productCount, ingredientCount, supplierCount, customerCount] = await Promise.all([
+  const [business, branch, user, productCount, ingredientCount, supplierCount, customerCount, thresholds] = await Promise.all([
     prisma.business.findFirst(),
     prisma.branch.findFirst(),
     prisma.user.findFirst(),
@@ -12,13 +14,14 @@ export default async function SettingsPage() {
     prisma.ingredient.count(),
     prisma.supplier.count(),
     prisma.customer.count(),
+    getIngredientThresholds(),
   ]);
 
   return (
     <div>
-      <PageHeader title="Configuracion" description="Datos del sistema" />
+      <PageHeader title="Configuracion" description="Datos del sistema y umbrales de stock" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div className="bg-card border border-border rounded-xl p-5">
           <h2 className="text-sm font-semibold mb-4">Negocio</h2>
           <dl className="space-y-3 text-sm">
@@ -92,7 +95,11 @@ export default async function SettingsPage() {
         </div>
       </div>
 
-      <div className="mt-6 bg-card border border-border rounded-xl p-5">
+      <div className="mb-6">
+        <StockConfig ingredients={thresholds} />
+      </div>
+
+      <div className="bg-card border border-border rounded-xl p-5">
         <h2 className="text-sm font-semibold mb-2">Acerca de</h2>
         <p className="text-sm text-muted-foreground">
           Milanesa OS v0.1.0 - Sistema de gestion para La Milaneseria.

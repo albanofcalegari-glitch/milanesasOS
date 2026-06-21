@@ -178,40 +178,40 @@ async function main() {
     bolsa,
   ] = await Promise.all([
     prisma.ingredient.create({
-      data: { name: "Carne nalga", unit: "kg", stock: 25, costPerUnit: 8500, minStock: 10 },
+      data: { name: "Carne nalga", unit: "kg", stock: 25, costPerUnit: 8500, minStock: 10, reorderPoint: 15, breakPoint: 5 },
     }),
     prisma.ingredient.create({
-      data: { name: "Pollo", unit: "kg", stock: 18, costPerUnit: 5200, minStock: 8 },
+      data: { name: "Pollo", unit: "kg", stock: 18, costPerUnit: 5200, minStock: 8, reorderPoint: 12, breakPoint: 3 },
     }),
     prisma.ingredient.create({
-      data: { name: "Huevo", unit: "unidad", stock: 120, costPerUnit: 150, minStock: 60 },
+      data: { name: "Huevo", unit: "unidad", stock: 120, costPerUnit: 150, minStock: 60, reorderPoint: 80, breakPoint: 30 },
     }),
     prisma.ingredient.create({
-      data: { name: "Pan rallado", unit: "kg", stock: 8, costPerUnit: 2800, minStock: 5 },
+      data: { name: "Pan rallado", unit: "kg", stock: 8, costPerUnit: 2800, minStock: 5, reorderPoint: 8, breakPoint: 2 },
     }),
     prisma.ingredient.create({
-      data: { name: "Mozzarella", unit: "kg", stock: 4, costPerUnit: 9500, minStock: 3 },
+      data: { name: "Mozzarella", unit: "kg", stock: 4, costPerUnit: 9500, minStock: 3, reorderPoint: 5, breakPoint: 1 },
     }),
     prisma.ingredient.create({
-      data: { name: "Jamon", unit: "kg", stock: 3, costPerUnit: 12000, minStock: 2 },
+      data: { name: "Jamon", unit: "kg", stock: 3, costPerUnit: 12000, minStock: 2, reorderPoint: 4, breakPoint: 1 },
     }),
     prisma.ingredient.create({
-      data: { name: "Salsa de tomate", unit: "litro", stock: 6, costPerUnit: 1800, minStock: 3 },
+      data: { name: "Salsa de tomate", unit: "litro", stock: 6, costPerUnit: 1800, minStock: 3, reorderPoint: 5, breakPoint: 1 },
     }),
     prisma.ingredient.create({
-      data: { name: "Aceite", unit: "litro", stock: 15, costPerUnit: 3200, minStock: 5 },
+      data: { name: "Aceite", unit: "litro", stock: 15, costPerUnit: 3200, minStock: 5, reorderPoint: 8, breakPoint: 2 },
     }),
     prisma.ingredient.create({
-      data: { name: "Papa", unit: "kg", stock: 20, costPerUnit: 1500, minStock: 10 },
+      data: { name: "Papa", unit: "kg", stock: 20, costPerUnit: 1500, minStock: 10, reorderPoint: 15, breakPoint: 5 },
     }),
     prisma.ingredient.create({
-      data: { name: "Pan de sandwich", unit: "unidad", stock: 40, costPerUnit: 800, minStock: 20 },
+      data: { name: "Pan de sandwich", unit: "unidad", stock: 40, costPerUnit: 800, minStock: 20, reorderPoint: 30, breakPoint: 10 },
     }),
     prisma.ingredient.create({
-      data: { name: "Packaging", unit: "unidad", stock: 150, costPerUnit: 250, minStock: 50 },
+      data: { name: "Packaging", unit: "unidad", stock: 150, costPerUnit: 250, minStock: 50, reorderPoint: 80, breakPoint: 20 },
     }),
     prisma.ingredient.create({
-      data: { name: "Bolsa", unit: "unidad", stock: 200, costPerUnit: 80, minStock: 100 },
+      data: { name: "Bolsa", unit: "unidad", stock: 200, costPerUnit: 80, minStock: 100, reorderPoint: 150, breakPoint: 40 },
     }),
   ]);
   console.log("12 ingredientes creados");

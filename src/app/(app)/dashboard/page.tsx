@@ -11,7 +11,11 @@ import {
   Wallet,
   AlertTriangle,
   Factory,
+  Leaf,
+  XCircle,
+  ShoppingCart,
 } from "lucide-react";
+import Link from "next/link";
 import { DashboardChart } from "./chart";
 
 export default async function DashboardPage() {
@@ -94,6 +98,41 @@ export default async function DashboardPage() {
           )}
         </div>
       </div>
+
+      {/* Materias primas alerts */}
+      {(data.breakIngredients.length > 0 || data.reorderIngredients.length > 0) && (
+        <div className="mb-6">
+          <div className="bg-card border border-border rounded-xl p-5">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Leaf className="size-4 text-primary" />
+                <h2 className="text-sm font-semibold">Alertas de Materias Primas</h2>
+              </div>
+              <Link href="/materias-primas" className="text-xs text-primary hover:underline">Ver todo</Link>
+            </div>
+            <div className="space-y-2">
+              {data.breakIngredients.map((i) => (
+                <div key={i.id} className="flex items-center gap-3 p-2 rounded-lg bg-red-500/5 border border-red-500/20">
+                  <XCircle className="size-4 text-red-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium">{i.name}</span>
+                    <span className="text-xs text-muted-foreground ml-2">QUIEBRE - {i.stock} {i.unit} (min: {i.breakPoint})</span>
+                  </div>
+                </div>
+              ))}
+              {data.reorderIngredients.map((i) => (
+                <div key={i.id} className="flex items-center gap-3 p-2 rounded-lg bg-yellow-500/5 border border-yellow-500/20">
+                  <ShoppingCart className="size-4 text-yellow-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium">{i.name}</span>
+                    <span className="text-xs text-muted-foreground ml-2">Reponer - {i.stock} {i.unit} (reposicion: {i.reorderPoint})</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-card border border-border rounded-xl p-5">
