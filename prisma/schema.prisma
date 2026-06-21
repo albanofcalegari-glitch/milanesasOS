@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id        String   @id @default(cuid())
+  name      String
+  cuit      String?
+  currency  String   @default("ARS")
+  createdAt DateTime @default(now())
+  branches  Branch[]
+}
+
+model Branch {
+  id           String   @id @default(cuid())
+  businessId   String
+  name         String
+  address      String?
+  phone        String?
+  createdAt    DateTime @default(now())
+  business     Business @relation(fields: [businessId], references: [id])
+  users        User[]
+  cashSessions CashSession[]
+  sales        Sale[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      String   @default("cashier")
+  branchId  String
+  createdAt DateTime @default(now())
+  branch    Branch   @relation(fields: [branchId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  price       Float
+  cost        Float    @default(0)
+  type        String   @default("finished")
+  active      Boolean  @default(true)
+  stock       Float    @default(0)
+  minStock    Float    @default(0)
+  unit        String   @default("unidad")
+  createdAt   DateTime @default(now())
+  saleItems   SaleItem[]
+  recipe      Recipe?
+  productionOrderItems ProductionOrderItem[]
+}
+
+model Ingredient {
+  id          String   @id @default(cuid())
+  name        String
+  unit        String   @default("kg")
+  stock       Float    @default(0)
+  minStock    Float    @default(5)
+  costPerUnit Float    @default(0)
+  createdAt   DateTime @default(now())
+  recipeItems RecipeItem[]
+  purchaseOrderItems PurchaseOrderItem[]
+}
+
+model Recipe {
+  id        String       @id @default(cuid())
+  productId String       @unique
+  product   Product      @relation(fields: [productId], references: [id])
+  items     RecipeItem[]
+  createdAt DateTime     @default(now())
+}
+
+model RecipeItem {
+  id           String     @id @default(cuid())
+  recipeId     String
+  ingredientId String
+  quantity     Float
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+}
+
+model Supplier {
+  id        String          @id @default(cuid())
+  name      String
+  contact   String?
+  phone     String?
+  email     String?
+  createdAt DateTime        @default(now())
+  orders    PurchaseOrder[]
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  type      String   @default("final")
+  notes     String?
+  createdAt DateTime @default(now())
+  sales     Sale[]
+}
+
+model Sale {
+  id            String     @id @default(cuid())
+  branchId      String
+  customerId    String?
+  cashSessionId String?
+  subtotal      Float
+  discount      Float      @default(0)
+  total         Float
+  paymentMethod String
+  status        String     @default("completed")
+  createdAt     DateTime   @default(now())
+  branch        Branch     @relation(fields: [branchId], references: [id])
+  customer      Customer?  @relation(fields: [customerId], references: [id])
+  cashSession   CashSession? @relation(fields: [cashSessionId], references: [id])
+  items         SaleItem[]
+}
+
+model SaleItem {
+  id        String  @id @default(cuid())
+  saleId    String
+  productId String
+  quantity  Int
+  unitPrice Float
+  subtotal  Float
+  sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model CashSession {
+  id             String         @id @default(cuid())
+  branchId       String
+  openedAt       DateTime       @default(now())
+  closedAt       DateTime?
+  openingAmount  Float
+  closingAmount  Float?
+  expectedAmount Float?
+  difference     Float?
+  status         String         @default("open")
+  notes          String?
+  branch         Branch         @relation(fields: [branchId], references: [id])
+  movements      CashMovement[]
+  sales          Sale[]
+}
+
+model CashMovement {
+  id            String      @id @default(cuid())
+  cashSessionId String
+  type          String
+  amount        Float
+  description   String
+  createdAt     DateTime    @default(now())
+  cashSession   CashSession @relation(fields: [cashSessionId], references: [id])
+}
+
+model StockMovement {
+  id          String   @id @default(cuid())
+  itemType    String
+  itemId      String
+  type        String
+  quantity    Float
+  reason      String
+  reference   String?
+  createdAt   DateTime @default(now())
+}
+
+model ProductionOrder {
+  id        String                 @id @default(cuid())
+  status    String                 @default("pending")
+  notes     String?
+  createdAt DateTime               @default(now())
+  completedAt DateTime?
+  items     ProductionOrderItem[]
+}
+
+model ProductionOrderItem {
+  id                String          @id @default(cuid())
+  productionOrderId String
+  productId         String
+  quantity          Int
+  productionOrder   ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  product           Product         @relation(fields: [productId], references: [id])
+}
+
+model PurchaseOrder {
+  id         String              @id @default(cuid())
+  supplierId String
+  status     String              @default("draft")
+  total      Float               @default(0)
+  notes      String?
+  createdAt  DateTime            @default(now())
+  receivedAt DateTime?
+  supplier   Supplier            @relation(fields: [supplierId], references: [id])
+  items      PurchaseOrderItem[]
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(cuid())
+  purchaseOrderId String
+  ingredientId    String
+  quantity        Float
+  unitPrice       Float
+  subtotal        Float
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  ingredient      Ingredient    @relation(fields: [ingredientId], references: [id])
+}
